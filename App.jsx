@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { 
   Leaf, 
   Wallet, 
@@ -359,6 +360,7 @@ export default function App() {
         </nav>
 
       </div>
+      <SpeedInsights />
     </div>
   );
 }
