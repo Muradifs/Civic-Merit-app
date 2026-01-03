@@ -1,5 +1,5 @@
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
 import { 
   Leaf, 
   Wallet, 
@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 
 // --- STILOVI I FONTOVI ---
+// Ubacujemo Inter font direktno kroz style tag za brzi "facelift"
 const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -39,7 +40,7 @@ const GlobalStyles = () => (
 // --- KONFIGURACIJA PODATAKA ---
 
 const generateMockHash = () => "0x" + Array(16).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join("");
-const MOCK_WALLET_ADDRESS = "GB72PLQA5Y4...K9J2M"; 
+const PI_WALLET_ADDRESS = "GDXV7Z33WRNXOK2BQPHJMVJ7MVBWTDKVW3XLVIGGI4XVQZS4PU4FF72M"; 
 
 const translations = {
   en: {
@@ -73,7 +74,7 @@ const translations = {
     rank: "Rank",
     maxSupply: "Max Supply",
     circulating: "Circulating",
-    walletAddr: "Pi Wallet Address",
+    walletAddr: "Pi Network Wallet Address",
     networkStatus: "Network Status",
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
@@ -126,7 +127,7 @@ const translations = {
     rank: "Rang",
     maxSupply: "Max Zaliha",
     circulating: "U optjecaju",
-    walletAddr: "Pi Novčanik",
+    walletAddr: "Pi Network Novčanik",
     networkStatus: "Status Mreže",
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
@@ -179,7 +180,7 @@ const translations = {
     rank: "Rang",
     maxSupply: "Max. Vorrat",
     circulating: "Im Umlauf",
-    walletAddr: "Pi-Wallet-Adresse",
+    walletAddr: "Pi Network Wallet-Adresse",
     networkStatus: "Netzwerkstatus",
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
@@ -232,7 +233,7 @@ const translations = {
     rank: "Rango",
     maxSupply: "Suministro Máx",
     circulating: "Circulante",
-    walletAddr: "Dirección Pi",
+    walletAddr: "Dirección Pi Network",
     networkStatus: "Estado de Red",
     blockHeight: "Índice Ledger",
     txHash: "Tx Hash",
@@ -322,7 +323,7 @@ function App() {
   const [merits, setMerits] = useState(1250);
   const [notification, setNotification] = useState(null);
   const [level, setLevel] = useState({ name: 'Eco Novice', progress: 75, max: 100 });
-  const [lang, setLang] = useState('en'); 
+  const [lang, setLang] = useState('en'); // <--- POSTAVLJENO NA 'en' (Engleski)
   const [currentLocation, setCurrentLocation] = useState(locations[0]); 
   const [isTracking, setIsTracking] = useState(false);
   const [gpsPermission, setGpsPermission] = useState(true);
@@ -649,7 +650,7 @@ function App() {
        
        <div className="bg-gray-100 p-3 rounded-xl flex items-center space-x-2 mb-6 cursor-pointer hover:bg-gray-200 transition" onClick={() => showNotification("📋 Address Copied")}>
            <LinkIcon size={14} className="text-gray-500" />
-           <span className="font-mono text-xs text-gray-600">{MOCK_WALLET_ADDRESS.substring(0, 10)}...{MOCK_WALLET_ADDRESS.substring(MOCK_WALLET_ADDRESS.length - 6)}</span>
+           <span className="font-mono text-xs text-gray-600">{PI_WALLET_ADDRESS.substring(0, 10)}...{PI_WALLET_ADDRESS.substring(PI_WALLET_ADDRESS.length - 6)}</span>
            <Copy size={12} className="text-gray-400"/>
            <span className="text-[10px] bg-purple-100 text-purple-800 px-1 rounded ml-1 font-bold">Pi</span>
        </div>
@@ -784,11 +785,4 @@ function App() {
   );
 }
 
-// Inicijalizacija aplikacije
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+export default App;
