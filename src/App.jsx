@@ -9,8 +9,6 @@ import {
   Camera, 
   Bike, 
   Users, 
-  ChevronRight, 
-  Trophy, 
   History,
   MapPin,
   Bus,
@@ -29,8 +27,7 @@ import {
 
 // --- KONFIGURACIJA PODATAKA (DATA MOCK) ---
 
-// 0. BLOCKCHAIN UTILS (PI NETWORK INTEGRADATION)
-// Pi Network koristi Stellar Consensus Protocol (SCP). Adrese počinju s 'G' (Public Key).
+// 0. BLOCKCHAIN UTILS (PI NETWORK INTEGRACIJA)
 const generateMockHash = () => "0x" + Array(16).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join("");
 const MOCK_WALLET_ADDRESS = "GB72PLQA5Y4...K9J2M"; // Stellar/Pi stil adrese
 
@@ -73,7 +70,7 @@ const translations = {
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
     confirmed: "Potvrđeno",
-    scpReady: "Pi Mainnet Online", // Ažurirano
+    scpReady: "Pi Mainnet Online",
     nav: { act: "Djeluj", wallet: "Novčanik", market: "Tržnica", profile: "Profil" },
     rewards: {
       parking: "1h Parking",
@@ -127,7 +124,7 @@ const translations = {
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
     confirmed: "Confirmed",
-    scpReady: "Pi Mainnet Online", // Ažurirano
+    scpReady: "Pi Mainnet Online",
     nav: { act: "Act", wallet: "Wallet", market: "Market", profile: "Profile" },
     rewards: {
       parking: "1h Parking",
@@ -181,7 +178,7 @@ const translations = {
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
     confirmed: "Bestätigt",
-    scpReady: "Pi Mainnet Online", // Ažurirano
+    scpReady: "Pi Mainnet Online",
     nav: { act: "Handeln", wallet: "Geldbörse", market: "Markt", profile: "Profil" },
     rewards: {
       parking: "1h Parken",
@@ -235,7 +232,7 @@ const translations = {
     blockHeight: "Índice Ledger",
     txHash: "Tx Hash",
     confirmed: "Confirmado",
-    scpReady: "Pi Mainnet Online", // Ažurirano
+    scpReady: "Pi Mainnet Online",
     nav: { act: "Actuar", wallet: "Cartera", market: "Mercado", profile: "Perfil" },
     rewards: {
       parking: "1h Aparcamiento",
@@ -447,7 +444,7 @@ export default function App() {
 
   const HomeView = () => (
     <div className="space-y-6 animate-in fade-in duration-500 pb-24">
-      {/* Hero Kartica - PI NETWORK BOJE (Ljubičasta/Zlatna varijacija ili zadržavanje Eko-Zelene uz Pi detalje) */}
+      {/* Hero Kartica - PI NETWORK BOJE */}
       <div className="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 opacity-10 transform translate-x-4 -translate-y-4">
           <Zap size={120} />
