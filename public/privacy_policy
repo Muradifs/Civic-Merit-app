@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - CivicMerit</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #059669; }
+        h2 { margin-top: 30px; color: #1f2937; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Privacy Policy for CivicMerit</h1>
+    <p><strong>Last updated:</strong> January 03, 2026</p>
+
+    <h2>1. Introduction</h2>
+    <p>Welcome to CivicMerit ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, and share your information when you use our mobile application.</p>
+
+    <h2>2. Information We Collect</h2>
+    <h3>A. Personal Data</h3>
+    <ul>
+        <li><strong>Account Information:</strong> When you register, we collect your nickname and generated User ID.</li>
+        <li><strong>Blockchain Data:</strong> We store your public wallet address (e.g., Pi Network or Stellar address) to process reward transactions.</li>
+    </ul>
+
+    <h3>B. Sensitive Permissions & Data</h3>
+    <ul>
+        <li><strong>Location Data (GPS):</strong> We collect precise location data only when you actively start a "Mobility Challenge" (e.g., Bike to Work) to verify the distance traveled. You can toggle this tracking on/off at any time.</li>
+        <li><strong>Camera & Photos:</strong> We require camera access to allow you to scan QR codes (for recycling verification) or take photos of completed tasks (e.g., cleaning a park). These images are analyzed by our AI for verification and then discarded or stored securely as proof of work.</li>
+    </ul>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use your data to:</p>
+    <ul>
+        <li>Verify completion of civic tasks (e.g., did you actually cycle 5km?).</li>
+        <li>Distribute "Merit" tokens to your wallet.</li>
+        <li>Prevent fraud (e.g., GPS spoofing).</li>
+        <li>Display global leaderboards (using aggregated, non-identifiable data).</li>
+    </ul>
+
+    <h2>4. Blockchain & Public Ledger</h2>
+    <p>Please note that CivicMerit operates on a blockchain network (e.g., Pi Network / SCP).</p>
+    <p><strong>Transactions are Public:</strong> Any transfer of Merit tokens is recorded on a public ledger. While your personal name is not attached to the ledger, your wallet address and transaction history are visible to the public.</p>
+
+    <h2>5. Third-Party Services</h2>
+    <p>We may share data with:</p>
+    <ul>
+        <li><strong>Mapping Providers:</strong> (e.g., Google Maps, Mapbox) to render maps.</li>
+        <li><strong>Pi Network / Stellar:</strong> To execute token transactions.</li>
+    </ul>
+
+    <h2>6. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+        <li>Request access to the personal data we hold.</li>
+        <li>Request deletion of your account and associated off-chain data.</li>
+        <li>Withdraw consent for GPS tracking via your device settings.</li>
+    </ul>
+
+    <h2>7. Contact Us</h2>
+    <p>If you have questions about this policy, please contact us at: <a href="mailto:legal@civicmerit.app">legal@civicmerit.app</a></p>
+</body>
+</html>
