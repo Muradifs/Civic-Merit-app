@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
 import { 
   Leaf, 
   Wallet, 
@@ -9,8 +10,6 @@ import {
   Camera, 
   Bike, 
   Users, 
-  ChevronRight, 
-  Trophy, 
   History,
   MapPin,
   Bus,
@@ -24,72 +23,15 @@ import {
   Hash,
   CheckCircle2,
   Copy,
-  Zap // Ikona za Pi Mining/Energy feel
+  Zap
 } from 'lucide-react';
 
-// --- KONFIGURACIJA PODATAKA (DATA MOCK) ---
+// --- KONFIGURACIJA PODATAKA ---
 
-// 0. BLOCKCHAIN UTILS (PI NETWORK INTEGRADATION)
-// Pi Network koristi Stellar Consensus Protocol (SCP). Adrese počinju s 'G' (Public Key).
 const generateMockHash = () => "0x" + Array(16).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join("");
-const MOCK_WALLET_ADDRESS = "GB72PLQA5Y4...K9J2M"; // Stellar/Pi stil adrese
+const MOCK_WALLET_ADDRESS = "GB72PLQA5Y4...K9J2M"; 
 
-// 1. Prijevodi (Internationalization)
 const translations = {
-  hr: {
-    greeting: "Bok",
-    value: "vrijednosti",
-    level: "Razina",
-    nextLevel: "Još {xp} XP do nove razine.",
-    dailyChallenge: "Dnevni Izazov",
-    challengeDesc: "Dan bez automobila - uštedi CO2!",
-    accept: "Prihvati Izazov",
-    quickActions: "Brze Akcije",
-    scan: "Skeniraj",
-    report: "Prijavi",
-    start: "Kreni",
-    stop: "Zaustavi",
-    invite: "Pozovi",
-    walletTotal: "Ukupno stanje",
-    history: "Povijest transakcija",
-    marketTitle: "Gradska Tržnica",
-    marketDesc: "Zamijeni svoje zasluge za nagrade u",
-    buy: "Kupi",
-    profile: "Profil",
-    settings: "Postavke",
-    language: "Jezik",
-    location: "Lokacija",
-    gpsSetting: "GPS Praćenje",
-    gpsOn: "Uključeno",
-    gpsOff: "Isključeno",
-    globalMap: "Globalna prisutnost",
-    score: "Bodovi",
-    rank: "Rang",
-    maxSupply: "Max Zaliha",
-    circulating: "U optjecaju",
-    // Blockchain specific (Pi Network)
-    walletAddr: "Pi Novčanik",
-    networkStatus: "Status Mreže",
-    blockHeight: "Ledger Index",
-    txHash: "Tx Hash",
-    confirmed: "Potvrđeno",
-    scpReady: "Pi Mainnet Online", // Ažurirano
-    nav: { act: "Djeluj", wallet: "Novčanik", market: "Tržnica", profile: "Profil" },
-    rewards: {
-      parking: "1h Parking",
-      bus: "Javni prijevoz (30 min)",
-      cinema: "Kino Ulaznica",
-      donation: "Donacija za Azil"
-    },
-    transactions: {
-      glass: "Recikliranje stakla",
-      bike: "Biciklom na posao",
-      partner: "Partner popust",
-      scan: "QR Skeniranje",
-      ride: "Eko Vožnja",
-      buy: "Kupnja"
-    }
-  },
   en: {
     greeting: "Hi",
     value: "value",
@@ -121,13 +63,12 @@ const translations = {
     rank: "Rank",
     maxSupply: "Max Supply",
     circulating: "Circulating",
-    // Blockchain specific (Pi Network)
     walletAddr: "Pi Wallet Address",
     networkStatus: "Network Status",
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
     confirmed: "Confirmed",
-    scpReady: "Pi Mainnet Online", // Ažurirano
+    scpReady: "Pi Mainnet Online",
     nav: { act: "Act", wallet: "Wallet", market: "Market", profile: "Profile" },
     rewards: {
       parking: "1h Parking",
@@ -142,6 +83,59 @@ const translations = {
       scan: "QR Scan",
       ride: "Eco Ride",
       buy: "Purchase"
+    }
+  },
+  hr: {
+    greeting: "Bok",
+    value: "vrijednosti",
+    level: "Razina",
+    nextLevel: "Još {xp} XP do nove razine.",
+    dailyChallenge: "Dnevni Izazov",
+    challengeDesc: "Dan bez automobila - uštedi CO2!",
+    accept: "Prihvati Izazov",
+    quickActions: "Brze Akcije",
+    scan: "Skeniraj",
+    report: "Prijavi",
+    start: "Kreni",
+    stop: "Zaustavi",
+    invite: "Pozovi",
+    walletTotal: "Ukupno stanje",
+    history: "Povijest transakcija",
+    marketTitle: "Gradska Tržnica",
+    marketDesc: "Zamijeni svoje zasluge za nagrade u",
+    buy: "Kupi",
+    profile: "Profil",
+    settings: "Postavke",
+    language: "Jezik",
+    location: "Lokacija",
+    gpsSetting: "GPS Praćenje",
+    gpsOn: "Uključeno",
+    gpsOff: "Isključeno",
+    globalMap: "Globalna prisutnost",
+    score: "Bodovi",
+    rank: "Rang",
+    maxSupply: "Max Zaliha",
+    circulating: "U optjecaju",
+    walletAddr: "Pi Novčanik",
+    networkStatus: "Status Mreže",
+    blockHeight: "Ledger Index",
+    txHash: "Tx Hash",
+    confirmed: "Potvrđeno",
+    scpReady: "Pi Mainnet Online",
+    nav: { act: "Djeluj", wallet: "Novčanik", market: "Tržnica", profile: "Profil" },
+    rewards: {
+      parking: "1h Parking",
+      bus: "Javni prijevoz (30 min)",
+      cinema: "Kino Ulaznica",
+      donation: "Donacija za Azil"
+    },
+    transactions: {
+      glass: "Recikliranje stakla",
+      bike: "Biciklom na posao",
+      partner: "Partner popust",
+      scan: "QR Skeniranje",
+      ride: "Eko Vožnja",
+      buy: "Kupnja"
     }
   },
   de: {
@@ -175,13 +169,12 @@ const translations = {
     rank: "Rang",
     maxSupply: "Max. Vorrat",
     circulating: "Im Umlauf",
-    // Blockchain specific
     walletAddr: "Pi-Wallet-Adresse",
     networkStatus: "Netzwerkstatus",
     blockHeight: "Ledger Index",
     txHash: "Tx Hash",
     confirmed: "Bestätigt",
-    scpReady: "Pi Mainnet Online", // Ažurirano
+    scpReady: "Pi Mainnet Online",
     nav: { act: "Handeln", wallet: "Geldbörse", market: "Markt", profile: "Profil" },
     rewards: {
       parking: "1h Parken",
@@ -229,13 +222,12 @@ const translations = {
     rank: "Rango",
     maxSupply: "Suministro Máx",
     circulating: "Circulante",
-    // Blockchain specific
     walletAddr: "Dirección Pi",
     networkStatus: "Estado de Red",
     blockHeight: "Índice Ledger",
     txHash: "Tx Hash",
     confirmed: "Confirmado",
-    scpReady: "Pi Mainnet Online", // Ažurirano
+    scpReady: "Pi Mainnet Online",
     nav: { act: "Actuar", wallet: "Cartera", market: "Mercado", profile: "Perfil" },
     rewards: {
       parking: "1h Aparcamiento",
@@ -254,15 +246,11 @@ const translations = {
   }
 };
 
-// 2. Lokacije (Global Database)
 const locations = [
-  // HRVATSKA
   { country: "Croatia", city: "Zagreb", currency: "EUR", region: "eu" },
   { country: "Croatia", city: "Split", currency: "EUR", region: "eu" },
   { country: "Croatia", city: "Osijek", currency: "EUR", region: "eu" },
   { country: "Croatia", city: "Rijeka", currency: "EUR", region: "eu" },
-  
-  // EUROPA
   { country: "Germany", city: "Berlin", currency: "EUR", region: "eu" },
   { country: "Germany", city: "Munich", currency: "EUR", region: "eu" },
   { country: "France", city: "Paris", currency: "EUR", region: "eu" },
@@ -274,12 +262,8 @@ const locations = [
   { country: "Russia", city: "Moscow", currency: "RUB", region: "eu" },
   { country: "Turkey", city: "Istanbul", currency: "TRY", region: "eu" },
   { country: "UK", city: "London", currency: "GBP", region: "eu" },
-
-  // SJEVERNA AMERIKA
   { country: "USA", city: "New York", currency: "USD", region: "na" },
   { country: "USA", city: "Los Angeles", currency: "USD", region: "na" },
-
-  // AZIJA & BLISKI ISTOK
   { country: "Japan", city: "Tokyo", currency: "JPY", region: "as" },
   { country: "China", city: "Beijing", currency: "CNY", region: "as" },
   { country: "Singapore", city: "Singapore", currency: "SGD", region: "as" },
@@ -288,15 +272,10 @@ const locations = [
   { country: "Iran", city: "Tehran", currency: "IRR", region: "as" },
   { country: "Israel", city: "Tel Aviv", currency: "ILS", region: "as" },
   { country: "Israel", city: "Haifa", currency: "ILS", region: "as" },
-
-  // AFRIKA
   { country: "South Africa", city: "Johannesburg", currency: "ZAR", region: "af" },
-
-  // AUSTRALIJA
   { country: "Australia", city: "Melbourne", currency: "AUD", region: "au" },
 ];
 
-// 3. Komponenta Karte Svijeta (SVG)
 const WorldMap = ({ selectedRegion }) => {
   const paths = {
     na: "M 50,60 L 120,50 L 160,90 L 130,160 L 80,140 Z", 
@@ -308,7 +287,7 @@ const WorldMap = ({ selectedRegion }) => {
   };
 
   const getColor = (regionKey) => {
-    return selectedRegion === regionKey ? "#F59E0B" : "#E5E7EB"; // Pi Amber vs Gray (Pi Branding)
+    return selectedRegion === regionKey ? "#F59E0B" : "#E5E7EB"; 
   };
 
   return (
@@ -333,19 +312,14 @@ export default function App() {
   const [merits, setMerits] = useState(1250);
   const [notification, setNotification] = useState(null);
   const [level, setLevel] = useState({ name: 'Eco Novice', progress: 75, max: 100 });
-  
-  // ZADANI JEZIK: Engleski ('en')
   const [lang, setLang] = useState('en'); 
   const [currentLocation, setCurrentLocation] = useState(locations[0]); 
   const [isTracking, setIsTracking] = useState(false);
   const [gpsPermission, setGpsPermission] = useState(true);
-  
-  // Blockchain State (Pi Network Ledger)
   const [blockHeight, setBlockHeight] = useState(18243921);
 
   const t = translations[lang];
 
-  // KORISTIMO KLJUČEVE (keys) za transakcije + Hash
   const [transactions, setTransactions] = useState([
     { id: 1, titleKey: 'glass', amount: 50, type: 'plus', date: '10:23', hash: generateMockHash(), block: 18243918 },
     { id: 2, titleKey: 'bike', amount: 120, type: 'plus', date: '08:45', hash: generateMockHash(), block: 18243850 },
@@ -359,7 +333,6 @@ export default function App() {
     { id: 4, titleKey: 'donation', cost: 500, icon: <Leaf size={20} />, color: 'bg-emerald-100 text-emerald-600' },
   ];
 
-  // Simulacija rasta blokova (Pi Network Live feel)
   useEffect(() => {
     const interval = setInterval(() => {
       setBlockHeight(prev => prev + 1);
@@ -381,8 +354,8 @@ export default function App() {
       amount: 50, 
       type: 'plus', 
       date: 'Now',
-      hash: generateMockHash(), // Generiraj Hash
-      block: blockHeight // Zapiši trenutni blok
+      hash: generateMockHash(), 
+      block: blockHeight 
     }, ...prev]);
     updateProgress(5);
   };
@@ -443,16 +416,12 @@ export default function App() {
     });
   };
 
-  // --- KOMPONENTE ZASLONA ---
-
   const HomeView = () => (
     <div className="space-y-6 animate-in fade-in duration-500 pb-24">
-      {/* Hero Kartica - PI NETWORK BOJE (Ljubičasta/Zlatna varijacija ili zadržavanje Eko-Zelene uz Pi detalje) */}
       <div className="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 opacity-10 transform translate-x-4 -translate-y-4">
           <Zap size={120} />
         </div>
-        
         <div className="relative z-10">
           <div className="flex justify-between items-start">
             <p className="text-emerald-100 text-sm mb-1">{t.greeting}, Ivan 👋</p>
@@ -461,13 +430,11 @@ export default function App() {
               <span>{currentLocation.city}</span>
             </div>
           </div>
-          
           <div className="flex items-baseline space-x-2 mt-2">
             <h1 className="text-5xl font-bold">{merits}</h1>
             <span className="text-emerald-200 font-medium">M</span>
           </div>
           <p className="text-xs text-emerald-200 mt-1">≈ {(merits / 100).toFixed(2)} {currentLocation.currency} {t.value}</p>
-          
           <div className="mt-6">
             <div className="flex justify-between text-xs mb-2">
               <span className="font-semibold">{t.level}: {level.name}</span>
@@ -486,7 +453,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Dnevni Izazov */}
       <div className="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100">
         <div className="flex justify-between items-start mb-3">
           <div className="flex items-center space-x-2">
@@ -513,7 +479,6 @@ export default function App() {
         </button>
       </div>
 
-      {/* Brze Akcije Grid */}
       <div>
         <h3 className="font-bold text-gray-800 mb-4 px-1">{t.quickActions}</h3>
         <div className="grid grid-cols-2 gap-4">
@@ -564,7 +529,6 @@ export default function App() {
            ≈ {(merits/100).toFixed(2)} {currentLocation.currency}
          </p>
          
-         {/* PI NETWORK STATUS INDICATOR */}
          <div className="mt-4 pt-4 border-t border-gray-50 flex justify-center items-center text-xs text-gray-400 space-x-3">
              <div className="flex items-center text-purple-700 font-bold bg-purple-50 px-2 py-1 rounded-full">
                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2 animate-pulse"></div>
@@ -576,10 +540,8 @@ export default function App() {
          </div>
        </div>
 
-       {/* GLOBAL NETWORK STATS */}
        <div className="bg-gray-900 text-emerald-400 p-5 rounded-2xl shadow-lg border border-gray-800 flex justify-between items-center relative overflow-hidden">
          <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500 opacity-5 rounded-full -translate-y-10 translate-x-10 blur-xl"></div>
-         
          <div className="relative z-10">
             <span className="text-gray-400 text-xs uppercase tracking-wider block mb-1 flex items-center gap-1">
               <BarChart3 size={12}/> {t.maxSupply}
@@ -592,7 +554,6 @@ export default function App() {
          </div>
        </div>
 
-       {/* TRANSACTION HISTORY WITH HASH */}
        <div>
          <h3 className="font-bold text-gray-800 mb-4 px-1 flex items-center">
            <History size={18} className="mr-2"/> {t.history}
@@ -608,7 +569,6 @@ export default function App() {
                    <p className="font-bold text-sm text-gray-800">{t.transactions[tx.titleKey] || tx.titleKey}</p>
                    <div className="flex items-center space-x-2">
                        <p className="text-xs text-gray-400">{tx.date}</p>
-                       {/* TX HASH LINK */}
                        <span className="text-[10px] text-blue-400 bg-blue-50 px-1 rounded flex items-center font-mono cursor-pointer hover:bg-blue-100" onClick={() => showNotification("📋 Hash Copied")}>
                            <Hash size={8} className="mr-0.5"/> {tx.hash.substring(0, 6)}...
                        </span>
@@ -619,7 +579,6 @@ export default function App() {
                    <span className={`font-bold block ${tx.type === 'plus' ? 'text-emerald-600' : 'text-gray-900'}`}>
                      {tx.type === 'plus' ? '+' : ''}{tx.amount}
                    </span>
-                   {/* Confirmation Check */}
                    <span className="text-[10px] text-green-500 flex items-center justify-end mt-1">
                        <CheckCircle2 size={10} className="mr-1"/> {t.confirmed}
                    </span>
@@ -678,7 +637,6 @@ export default function App() {
        <h2 className="text-xl font-bold text-gray-900">Ivan Horvat</h2>
        <p className="text-emerald-600 font-medium mb-4">{level.name}</p>
        
-       {/* WALLET ADDRESS CARD (BLOCKCHAIN IDENTITY) */}
        <div className="bg-gray-100 p-3 rounded-xl flex items-center space-x-2 mb-6 cursor-pointer hover:bg-gray-200 transition" onClick={() => showNotification("📋 Address Copied")}>
            <LinkIcon size={14} className="text-gray-500" />
            <span className="font-mono text-xs text-gray-600">{MOCK_WALLET_ADDRESS.substring(0, 10)}...{MOCK_WALLET_ADDRESS.substring(MOCK_WALLET_ADDRESS.length - 6)}</span>
@@ -687,7 +645,6 @@ export default function App() {
        </div>
        
        <div className="w-full space-y-6 px-2">
-         {/* Stats */}
          <div className="grid grid-cols-2 gap-4">
             <div className="bg-white p-4 rounded-xl border border-gray-100 text-center">
                <span className="block text-gray-400 text-xs">{t.score}</span>
@@ -699,7 +656,6 @@ export default function App() {
             </div>
          </div>
 
-         {/* Settings Section */}
          <div className="bg-white p-5 rounded-2xl border border-gray-100 space-y-4">
            <h3 className="font-bold text-gray-800 flex items-center"><Settings size={18} className="mr-2"/> {t.settings}</h3>
            
@@ -770,93 +726,67 @@ export default function App() {
   );
 
   return (
-    <div className="bg-gray-50 min-h-screen font-sans text-gray-900 flex justify-center">
-      <div className="w-full max-w-md bg-white min-h-screen shadow-2xl relative flex flex-col">
-        
-        {/* HEADER */}
-        <header className="px-6 py-5 bg-white flex justify-between items-center sticky top-0 z-50 border-b border-gray-50">
-          <div className="flex items-center space-x-2">
-            <div className="bg-emerald-500 p-1.5 rounded-lg">
-              <Leaf size={20} className="text-white" />
-            </div>
-            <span className="font-bold text-lg tracking-tight text-gray-900">CivicMerit</span>
-          </div>
-          <div className="flex items-center space-x-3">
-            {isTracking && (
-              <div className="flex items-center space-x-1 bg-red-100 px-2 py-1 rounded-full animate-pulse">
-                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                <span className="text-[10px] font-bold text-red-600">REC</span>
-              </div>
-            )}
-            
-            <button className="relative p-2 hover:bg-gray-100 rounded-full transition">
-              <Bell size={20} className="text-gray-600" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-            </button>
-            <button onClick={() => setActiveTab('profile')} className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center border border-gray-100 overflow-hidden">
-               <span className="text-xs">{lang.toUpperCase()}</span>
-            </button>
-          </div>
-        </header>
+    <div className="bg-gray-50 min-h-screen font-sans pb-20 relative overflow-hidden select-none">
+      {/* Notification Toast */}
+      {notification && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded-full shadow-xl z-50 animate-bounce flex items-center space-x-2">
+           <CheckCircle2 size={16} className="text-emerald-400" />
+           <span className="text-xs font-bold">{notification}</span>
+        </div>
+      )}
 
-        {/* NOTIFICATION BANNER */}
-        {notification && (
-          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-4 py-3 rounded-xl shadow-lg z-50 text-sm font-medium animate-in slide-in-from-top duration-300 flex items-center w-10/12 max-w-sm">
-            {notification}
-          </div>
-        )}
-
-        <main className="flex-1 p-6 overflow-y-auto">
+      {/* Main Content Area */}
+      <div className="max-w-md mx-auto min-h-screen bg-white shadow-2xl relative overflow-y-auto overflow-x-hidden">
+        <div className="p-4 pt-12">
           {activeTab === 'home' && <HomeView />}
           {activeTab === 'wallet' && <WalletView />}
           {activeTab === 'market' && <MarketView />}
           {activeTab === 'profile' && <ProfileView />}
-        </main>
+        </div>
 
-        <nav className="fixed bottom-0 max-w-md w-full bg-white border-t border-gray-100 px-6 py-4 flex justify-between items-center z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-          <button 
-            onClick={() => setActiveTab('home')} 
-            className={`flex flex-col items-center space-y-1 transition ${activeTab === 'home' ? 'text-emerald-600' : 'text-gray-400'}`}
-          >
-            <Leaf size={24} fill={activeTab === 'home' ? "currentColor" : "none"} />
-            <span className="text-[10px] font-medium">{t.nav.act}</span>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('wallet')}
-            className={`flex flex-col items-center space-y-1 transition ${activeTab === 'wallet' ? 'text-emerald-600' : 'text-gray-400'}`}
-          >
-            <Wallet size={24} fill={activeTab === 'wallet' ? "currentColor" : "none"} />
-            <span className="text-[10px] font-medium">{t.nav.wallet}</span>
-          </button>
-          
-          <div className="relative -top-6">
-            <button 
-              onClick={() => handleScan()}
-              className="bg-gray-900 text-white p-4 rounded-full shadow-lg hover:scale-105 transition active:scale-95 ring-4 ring-gray-50"
-            >
-              <QrCode size={24} />
-            </button>
+        {/* Bottom Navigation */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-4 z-40 max-w-md mx-auto rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.03)]">
+          <div className="flex justify-between items-center">
+             <button 
+               onClick={() => setActiveTab('home')}
+               className={`flex flex-col items-center space-y-1 transition duration-300 ${activeTab === 'home' ? 'text-emerald-600 scale-110' : 'text-gray-400 hover:text-gray-600'}`}
+             >
+               <Zap size={24} strokeWidth={activeTab === 'home' ? 2.5 : 2} />
+               <span className="text-[10px] font-medium">{t.nav.act}</span>
+             </button>
+
+             <button 
+               onClick={() => setActiveTab('wallet')}
+               className={`flex flex-col items-center space-y-1 transition duration-300 ${activeTab === 'wallet' ? 'text-emerald-600 scale-110' : 'text-gray-400 hover:text-gray-600'}`}
+             >
+               <Wallet size={24} strokeWidth={activeTab === 'wallet' ? 2.5 : 2} />
+               <span className="text-[10px] font-medium">{t.nav.wallet}</span>
+             </button>
+
+             <button 
+               onClick={() => setActiveTab('market')}
+               className={`flex flex-col items-center space-y-1 transition duration-300 ${activeTab === 'market' ? 'text-emerald-600 scale-110' : 'text-gray-400 hover:text-gray-600'}`}
+             >
+               <ShoppingBag size={24} strokeWidth={activeTab === 'market' ? 2.5 : 2} />
+               <span className="text-[10px] font-medium">{t.nav.market}</span>
+             </button>
+
+             <button 
+               onClick={() => setActiveTab('profile')}
+               className={`flex flex-col items-center space-y-1 transition duration-300 ${activeTab === 'profile' ? 'text-emerald-600 scale-110' : 'text-gray-400 hover:text-gray-600'}`}
+             >
+               <User size={24} strokeWidth={activeTab === 'profile' ? 2.5 : 2} />
+               <span className="text-[10px] font-medium">{t.nav.profile}</span>
+             </button>
           </div>
-
-          <button 
-            onClick={() => setActiveTab('market')}
-            className={`flex flex-col items-center space-y-1 transition ${activeTab === 'market' ? 'text-emerald-600' : 'text-gray-400'}`}
-          >
-            <ShoppingBag size={24} fill={activeTab === 'market' ? "currentColor" : "none"} />
-            <span className="text-[10px] font-medium">{t.nav.market}</span>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('profile')}
-            className={`flex flex-col items-center space-y-1 transition ${activeTab === 'profile' ? 'text-emerald-600' : 'text-gray-400'}`}
-          >
-            <User size={24} fill={activeTab === 'profile' ? "currentColor" : "none"} />
-            <span className="text-[10px] font-medium">{t.nav.profile}</span>
-          </button>
-        </nav>
-
+        </div>
       </div>
     </div>
   );
 }
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
