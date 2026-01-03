@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   Leaf, Wallet, ShoppingBag, User, Bell, QrCode, Camera, Bike, 
@@ -43,7 +42,102 @@ const translations = {
     rewards: { parking: "1h Parking", bus: "Javni prijevoz (30 min)", cinema: "Kino Ulaznica", donation: "Donacija za Azil" },
     transactions: { glass: "Recikliranje stakla", bike: "Biciklom na posao", partner: "Partner popust", scan: "QR Skeniranje", ride: "Eko Vožnja", buy: "Kupnja" }
   },
-  // (Ostali jezici su skraćeni radi preglednosti, ali logika radi za HR/EN)
+  de: { // Njemački
+    greeting: "Hallo", value: "Wert", level: "Stufe", nextLevel: "{xp} XP bis zum nächsten Level.",
+    dailyChallenge: "Tägliche Herausforderung", challengeDesc: "Autofreier Tag - spare CO2!",
+    accept: "Herausforderung annehmen", quickActions: "Schnelle Aktionen", scan: "Scannen",
+    report: "Melden", start: "Starten", stop: "Stoppen", invite: "Einladen",
+    walletTotal: "Gesamtsaldo", history: "Transaktionsverlauf", marketTitle: "Stadtmarkt",
+    marketDesc: "Tausche deine Verdienste für Belohnungen in", buy: "Kaufen", profile: "Profil",
+    settings: "Einstellungen", language: "Sprache", location: "Standort", gpsSetting: "GPS-Tracking",
+    gpsOn: "Aktiviert", gpsOff: "Deaktiviert", globalMap: "Globale Präsenz", score: "Punkte",
+    rank: "Rang", maxSupply: "Max Versorgung", circulating: "Im Umlauf", walletAddr: "Pi Wallet Adresse",
+    networkStatus: "Netzwerkstatus", blockHeight: "Ledger Index", txHash: "Tx Hash",
+    confirmed: "Bestätigt", scpReady: "Pi Mainnet Online",
+    nav: { act: "Handeln", wallet: "Wallet", market: "Markt", profile: "Profil" },
+    rewards: { parking: "1h Parken", bus: "Öffentlicher Verkehr (30 min)", cinema: "Kino Ticket", donation: "Spende für Tierheim" },
+    transactions: { glass: "Glasrecycling", bike: "Fahrrad zur Arbeit", partner: "Partner-Rabatt", scan: "QR-Scan", ride: "Eco-Fahrt", buy: "Kauf" }
+  },
+  fr: { // Francuski
+    greeting: "Salut", value: "valeur", level: "Niveau", nextLevel: "{xp} XP au prochain niveau.",
+    dailyChallenge: "Défi quotidien", challengeDesc: "Journée sans voiture - économise du CO2 !",
+    accept: "Accepter le défi", quickActions: "Actions rapides", scan: "Scanner",
+    report: "Signaler", start: "Démarrer", stop: "Arrêter", invite: "Inviter",
+    walletTotal: "Solde total", history: "Historique des transactions", marketTitle: "Marché de la ville",
+    marketDesc: "Échange tes mérites contre des récompenses dans", buy: "Acheter", profile: "Profil",
+    settings: "Paramètres", language: "Langue", location: "Emplacement", gpsSetting: "Suivi GPS",
+    gpsOn: "Activé", gpsOff: "Désactivé", globalMap: "Présence globale", score: "Score",
+    rank: "Rang", maxSupply: "Fourniture maximale", circulating: "En circulation", walletAddr: "Adresse Pi Wallet",
+    networkStatus: "Statut du réseau", blockHeight: "Index du grand livre", txHash: "Tx Hash",
+    confirmed: "Confirmé", scpReady: "Pi Mainnet en ligne",
+    nav: { act: "Agir", wallet: "Portefeuille", market: "Marché", profile: "Profil" },
+    rewards: { parking: "1h Parking", bus: "Transport public (30 min)", cinema: "Ticket de cinéma", donation: "Don pour refuge animalier" },
+    transactions: { glass: "Recyclage du verre", bike: "Vélo au travail", partner: "Remise partenaire", scan: "Scan QR", ride: "Trajet éco", buy: "Achat" }
+  },
+  es: { // Španjolski
+    greeting: "Hola", value: "valor", level: "Nivel", nextLevel: "{xp} XP al siguiente nivel.",
+    dailyChallenge: "Desafío diario", challengeDesc: "Día sin coche - ahorra CO2!",
+    accept: "Aceptar desafío", quickActions: "Acciones rápidas", scan: "Escanear",
+    report: "Reportar", start: "Iniciar", stop: "Detener", invite: "Invitar",
+    walletTotal: "Saldo total", history: "Historial de transacciones", marketTitle: "Mercado de la ciudad",
+    marketDesc: "Canjea tus méritos por recompensas en", buy: "Comprar", profile: "Perfil",
+    settings: "Configuraciones", language: "Idioma", location: "Ubicación", gpsSetting: "Seguimiento GPS",
+    gpsOn: "Habilitado", gpsOff: "Deshabilitado", globalMap: "Presencia global", score: "Puntuación",
+    rank: "Rango", maxSupply: "Suministro máximo", circulating: "En circulación", walletAddr: "Dirección Pi Wallet",
+    networkStatus: "Estado de la red", blockHeight: "Índice del libro mayor", txHash: "Tx Hash",
+    confirmed: "Confirmado", scpReady: "Pi Mainnet en línea",
+    nav: { act: "Actuar", wallet: "Billetera", market: "Mercado", profile: "Perfil" },
+    rewards: { parking: "1h Estacionamiento", bus: "Transporte público (30 min)", cinema: "Entrada de cine", donation: "Donación para refugio de animales" },
+    transactions: { glass: "Reciclaje de vidrio", bike: "Bicicleta al trabajo", partner: "Descuento socio", scan: "Escaneo QR", ride: "Viaje eco", buy: "Compra" }
+  },
+  ru: { // Ruski
+    greeting: "Привет", value: "значение", level: "Уровень", nextLevel: "{xp} XP до следующего уровня.",
+    dailyChallenge: "Ежедневное задание", challengeDesc: "День без автомобиля - сэкономь CO2!",
+    accept: "Принять вызов", quickActions: "Быстрые действия", scan: "Сканировать",
+    report: "Сообщить", start: "Начать", stop: "Остановить", invite: "Пригласить",
+    walletTotal: "Общий баланс", history: "История транзакций", marketTitle: "Городской рынок",
+    marketDesc: "Обменяй свои заслуги на награды в", buy: "Купить", profile: "Профиль",
+    settings: "Настройки", language: "Язык", location: "Местоположение", gpsSetting: "Отслеживание GPS",
+    gpsOn: "Включено", gpsOff: "Выключено", globalMap: "Глобальное присутствие", score: "Очки",
+    rank: "Ранг", maxSupply: "Макс. запас", circulating: "В обращении", walletAddr: "Адрес Pi Wallet",
+    networkStatus: "Статус сети", blockHeight: "Индекс реестра", txHash: "Tx Hash",
+    confirmed: "Подтверждено", scpReady: "Pi Mainnet онлайн",
+    nav: { act: "Действовать", wallet: "Кошелек", market: "Рынок", profile: "Профиль" },
+    rewards: { parking: "1ч Парковка", bus: "Общественный транспорт (30 мин)", cinema: "Билет в кино", donation: "Пожертвование в приют" },
+    transactions: { glass: "Переработка стекла", bike: "Велосипед на работу", partner: "Скидка партнера", scan: "Сканирование QR", ride: "Эко-поездка", buy: "Покупка" }
+  },
+  pt: { // Portugalski
+    greeting: "Olá", value: "valor", level: "Nível", nextLevel: "{xp} XP para o próximo nível.",
+    dailyChallenge: "Desafio diário", challengeDesc: "Dia sem carro - economize CO2!",
+    accept: "Aceitar desafio", quickActions: "Ações rápidas", scan: "Digitalizar",
+    report: "Relatar", start: "Iniciar", stop: "Parar", invite: "Convidar",
+    walletTotal: "Saldo total", history: "Histórico de transações", marketTitle: "Mercado da cidade",
+    marketDesc: "Troque seus méritos por recompensas em", buy: "Comprar", profile: "Perfil",
+    settings: "Configurações", language: "Idioma", location: "Localização", gpsSetting: "Rastreamento GPS",
+    gpsOn: "Ativado", gpsOff: "Desativado", globalMap: "Presença global", score: "Pontuação",
+    rank: "Classificação", maxSupply: "Fornecimento máximo", circulating: "Em circulação", walletAddr: "Endereço Pi Wallet",
+    networkStatus: "Status da rede", blockHeight: "Índice do livro-razão", txHash: "Tx Hash",
+    confirmed: "Confirmado", scpReady: "Pi Mainnet online",
+    nav: { act: "Agir", wallet: "Carteira", market: "Mercado", profile: "Perfil" },
+    rewards: { parking: "1h Estacionamento", bus: "Transporte público (30 min)", cinema: "Ingresso de cinema", donation: "Doação para abrigo de animais" },
+    transactions: { glass: "Reciclagem de vidro", bike: "Bicicleta para o trabalho", partner: "Desconto parceiro", scan: "Digitalização QR", ride: "Viagem eco", buy: "Compra" }
+  },
+  zh: { // Kineski (pojednostavljeni)
+    greeting: "你好", value: "价值", level: "级别", nextLevel: "到下一个级别还需 {xp} XP。",
+    dailyChallenge: "每日挑战", challengeDesc: "无车日 - 节省 CO2！",
+    accept: "接受挑战", quickActions: "快速行动", scan: "扫描",
+    report: "报告", start: "开始", stop: "停止", invite: "邀请",
+    walletTotal: "总余额", history: "交易历史", marketTitle: "城市市场",
+    marketDesc: "在以下地点兑换你的功绩以获得奖励", buy: "购买", profile: "个人资料",
+    settings: "设置", language: "语言", location: "位置", gpsSetting: "GPS 跟踪",
+    gpsOn: "启用", gpsOff: "禁用", globalMap: "全球存在", score: "分数",
+    rank: "排名", maxSupply: "最大供应", circulating: "流通中", walletAddr: "Pi 钱包地址",
+    networkStatus: "网络状态", blockHeight: "账本索引", txHash: "Tx Hash",
+    confirmed: "已确认", scpReady: "Pi 主网在线",
+    nav: { act: "行动", wallet: "钱包", market: "市场", profile: "个人资料" },
+    rewards: { parking: "1小时停车", bus: "公共交通 (30 分钟)", cinema: "电影票", donation: "动物收容所捐赠" },
+    transactions: { glass: "玻璃回收", bike: "骑自行车上班", partner: "合作伙伴折扣", scan: "QR 扫描", ride: "生态骑行", buy: "购买" }
+  },
 };
 
 const locations = [
@@ -51,6 +145,20 @@ const locations = [
   { country: "Croatia", city: "Split", currency: "EUR", region: "eu" },
   { country: "Germany", city: "Berlin", currency: "EUR", region: "eu" },
   { country: "USA", city: "New York", currency: "USD", region: "na" },
+  // Novi gradovi
+  { country: "China", city: "Peking", currency: "CNY", region: "as" },
+  { country: "Japan", city: "Tokio", currency: "JPY", region: "as" },
+  { country: "USA", city: "LA", currency: "USD", region: "na" }, // Los Angeles
+  { country: "France", city: "Pariz", currency: "EUR", region: "eu" },
+  { country: "Czech Republic", city: "Prag", currency: "CZK", region: "eu" },
+  { country: "Russia", city: "Moskva", currency: "RUB", region: "eu" },
+  { country: "USA", city: "Miami", currency: "USD", region: "na" },
+  { country: "Spain", city: "Barcelona", currency: "EUR", region: "eu" },
+  { country: "Australia", city: "Adelaide", currency: "AUD", region: "as" },
+  { country: "Australia", city: "Melburn", currency: "AUD", region: "as" },
+  { country: "Croatia", city: "Rijeka", currency: "EUR", region: "eu" },
+  { country: "Croatia", city: "Osijek", currency: "EUR", region: "eu" },
+  { country: "Croatia", city: "Dubrovnik", currency: "EUR", region: "eu" },
 ];
 
 const WorldMap = ({ selectedRegion }) => {
@@ -77,7 +185,7 @@ export default function App() {
   const [merits, setMerits] = useState(1250);
   const [notification, setNotification] = useState(null);
   const [level, setLevel] = useState({ name: 'Eco Novice', progress: 75, max: 100 });
-  const [lang, setLang] = useState('hr'); 
+  const [lang, setLang] = useState('en'); // Sada default engleski
   const [currentLocation, setCurrentLocation] = useState(locations[0]); 
   const [isTracking, setIsTracking] = useState(false);
   const [gpsPermission, setGpsPermission] = useState(true);
